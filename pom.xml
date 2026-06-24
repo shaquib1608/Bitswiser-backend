@@ -169,7 +169,7 @@
 			<version>4.0.0</version>
 		</dependency>
 
-	</dependencies>v
+	</dependencies>
 
 	<build>
 		<plugins>
