@@ -59,7 +59,8 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOriginPatterns(
-                List.of("http://localhost:*")
+                List.of("http://localhost:*",
+                        "https://bitswiser-frontend.vercel.app/")
         );
 
         configuration.setAllowedMethods(
