@@ -60,7 +60,7 @@ public class SecurityConfig {
 
         configuration.setAllowedOriginPatterns(
                 List.of("http://localhost:*",
-                        "https://bitswiser-frontend.vercel.app/")
+                        "https://bitswiser-frontend.vercel.app")
         );
 
         configuration.setAllowedMethods(
