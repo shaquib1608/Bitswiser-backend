@@ -1,3 +1,36 @@
+//package com.bitwiser.service;
+//
+//import org.springframework.mail.SimpleMailMessage;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//public class EmailService {
+//
+//    private final JavaMailSender mailSender;
+//
+//    public EmailService(JavaMailSender mailSender) {
+//        this.mailSender = mailSender;
+//    }
+//
+//    public void sendEmail(
+//            String to,
+//            String subject,
+//            String body
+//    ) {
+//
+//        SimpleMailMessage message =
+//                new SimpleMailMessage();
+//
+//        message.setTo(to);
+//        message.setSubject(subject);
+//        message.setText(body);
+//
+//        mailSender.send(message);
+//    }
+//}
+
+
 package com.bitwiser.service;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -13,19 +46,26 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void sendEmail(
-            String to,
-            String subject,
-            String body
-    ) {
+    public void sendEmail(String to, String subject, String body) {
 
-        SimpleMailMessage message =
-                new SimpleMailMessage();
+        try {
 
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
+            SimpleMailMessage message = new SimpleMailMessage();
 
-        mailSender.send(message);
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(body);
+
+            mailSender.send(message);
+
+            System.out.println("Email sent successfully to: " + to);
+
+        } catch (Exception e) {
+
+            System.out.println("Failed to send email to: " + to);
+            e.printStackTrace();
+
+            throw e;
+        }
     }
 }
