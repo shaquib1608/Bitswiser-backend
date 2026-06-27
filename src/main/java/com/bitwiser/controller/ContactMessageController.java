@@ -75,47 +75,6 @@ public class ContactMessageController {
         this.emailService = emailService;
     }
 
-//    @PostMapping
-//    public ContactMessage createMessage(@Valid @RequestBody ContactMessage message) {
-//
-//        // Save message to database
-//        ContactMessage savedMessage = service.save(message);
-//
-//        // Try sending emails, but don't fail the API if email sending fails
-//        try {
-//
-//            // Email to you
-//            emailService.sendEmail(
-//                    "sheikhfahad00786@gmail.com",
-//                    "New Inquiry Received - BitWiser",
-//                    "Name: " + message.getName()
-//                            + "\nEmail: " + message.getEmail()
-//                            + "\nSubject: " + message.getSubject()
-//                            + "\n\nMessage:\n"
-//                            + message.getMessage()
-//            );
-//
-//            // Acknowledgement email to client
-//            emailService.sendEmail(
-//                    message.getEmail(),
-//                    "Thank you for contacting BitWiser",
-//                    "Hi " + message.getName()
-//                            + ",\n\n"
-//                            + "Thank you for reaching out to BitWiser.\n"
-//                            + "We have received your inquiry and will get back to you shortly.\n\n"
-//                            + "Regards,\n"
-//                            + "M D Shaquib Jahangir\n"
-//                            + "Founder, BitWiser"
-//            );
-//
-//        } catch (Exception e) {
-//
-//            System.out.println("Email sending failed:");
-//            e.printStackTrace();
-//        }
-//
-//        return savedMessage;
-//    }
 
 
     @PostMapping

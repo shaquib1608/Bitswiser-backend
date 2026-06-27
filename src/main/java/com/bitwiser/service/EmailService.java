@@ -1,7 +1,9 @@
+//
+//
+//
 //package com.bitwiser.service;
 //
-//import org.springframework.mail.SimpleMailMessage;
-//import org.springframework.mail.javamail.JavaMailSender;
+//import com.resend.Resend;
 //import org.springframework.stereotype.Service;
 //
 //@Service
@@ -9,63 +11,73 @@
 //
 //    private final JavaMailSender mailSender;
 //
+//
+//
 //    public EmailService(JavaMailSender mailSender) {
 //        this.mailSender = mailSender;
 //    }
 //
-//    public void sendEmail(
-//            String to,
-//            String subject,
-//            String body
-//    ) {
+//    public void sendEmail(String to, String subject, String body) {
 //
-//        SimpleMailMessage message =
-//                new SimpleMailMessage();
+//        try {
 //
-//        message.setTo(to);
-//        message.setSubject(subject);
-//        message.setText(body);
+//            SimpleMailMessage message = new SimpleMailMessage();
 //
-//        mailSender.send(message);
+//            message.setTo(to);
+//            message.setSubject(subject);
+//            message.setText(body);
+//
+//            mailSender.send(message);
+//
+//            System.out.println("Email sent successfully to: " + to);
+//
+//        } catch (Exception e) {
+//
+//            System.out.println("Failed to send email to: " + to);
+//            e.printStackTrace();
+//
+//            throw e;
+//        }
 //    }
 //}
 
 
 package com.bitwiser.service;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import com.resend.Resend;
+import com.resend.services.emails.model.CreateEmailOptions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
 
-    private final JavaMailSender mailSender;
+    private final Resend resend;
 
-    public EmailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
+    public EmailService(@Value("${RESEND_API_KEY}") String apiKey) {
+        this.resend = new Resend(apiKey);
     }
 
     public void sendEmail(String to, String subject, String body) {
 
         try {
 
-            SimpleMailMessage message = new SimpleMailMessage();
+            CreateEmailOptions params = CreateEmailOptions.builder()
+                    .from("BitWiser <onboarding@resend.dev>")
+                    .to(to)
+                    .subject(subject)
+                    .text(body)
+                    .build();
 
-            message.setTo(to);
-            message.setSubject(subject);
-            message.setText(body);
+            resend.emails().send(params);
 
-            mailSender.send(message);
-
-            System.out.println("Email sent successfully to: " + to);
+            System.out.println("Email sent successfully");
 
         } catch (Exception e) {
 
-            System.out.println("Failed to send email to: " + to);
             e.printStackTrace();
-
-            throw e;
+            throw new RuntimeException(e);
         }
+
     }
 }
